@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kitchen Nightmares Bingo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #celebration.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    #celebration.visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+  </style>
+
+<link rel="icon" type="image/gif" href="ramsay.gif" />
+
+<script>
+    if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      window.location.href = "mobile-version.html";
+    }
+  </script>
+  
+
+</head>
+<body>
+    <div class="header">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjZ3ODJ6dWR5ejlyZ243cHB6NmhrdXk1eXlzbWxiNzQzdGxha2c5aCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Yl4X3JyLv6fEVbTXKL/giphy.gif" alt="Gordon Ramsay" class="ramsay-gif">
+      
+      <h1>KITCHEN NIGHTMARES BINGO</h1>
+  
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjZ3ODJ6dWR5ejlyZ243cHB6NmhrdXk1eXlzbWxiNzQzdGxha2c5aCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Yl4X3JyLv6fEVbTXKL/giphy.gif" alt="Gordon Ramsay" class="ramsay-gif">
+    </div>
+  
+    <div id="container">
+      <p class="subtitle">
+        <a href="https://www.youtube.com/watch?v=JWc5SNvoQOM">List from Lady Emily.</a>
+      </p>
+      <div id="bingo"></div>
+      <button onclick="generateBingo()">New Card</button>
+    </div>
+
+  <div id="celebration" class="hidden">
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="bingo-banner">BINGO! 🔥🍳🔥</div>
+    <div class="ramsay-quote">“It’s raw! But you’ve got bingo, finally.”</div>
+  </div>
+
+  <!-- Preload Ramsay audio clips -->
+  <audio id="sound0" src="Gordan Ramsey says you burnt my weiner.mp3" preload="auto"></audio>
+  <audio id="sound1" src="Gordon Ramsay kill yourself 1.mp3" preload="auto"></audio>
+  <audio id="sound2" src="Oh no st Did you just spit on your meat_ Gordon Ramsay.mp3" preload="auto"></audio>
+  <audio id="sound3" src="Show me your willy.mp3" preload="auto"></audio>
+  <audio id="sound4" src="STOP PLAYING WOTH YOUR SAUSAGE  gordonramsay trend trending.mp3" preload="auto"></audio>
+  <audio id="newCardSound" src="You Screwed my Willie.mp3" preload="auto"></audio>
+
+
+  <script>
+    const phrases = [
+      "I’ve eaten this", "Dirty Kitchen", "Surprisingly Clean Kitchen", "Gordon Brings up his dead relatives", "Ethnic Stereotype Music",
+      "Someone Cries", "The Framing makes a big deal out of something that isn’t", "Unbelievable Amounts of Debt", "Crab Cakes", "Weirdly Horny",
+      "Gordon likes the dessert", "The food is visibly horrifying", "Gordon gets distracted", "Gordon Fails to Understand a Basic Concept",
+      "Owner Fails to Understand a Basic Concept", "Crane Game/Quarter Machine", "Fresh-Frozen", "Gordon Vomits/Dry Heaves in the Bathroom",
+      "Wait Staff Excited to Rat Out Kitchen", "Time to ask the locals", "Restaurant Did Not Survive", "Gordon Presents Feedback",
+      "Amends That Won’t Last", "Gordon eats food like surgery", "Bad End", "Renovation Looks Bad", "Booths Eliminated", "Theme Is Changed",
+      "Shut the Place Down", "Distracting Decor", "Owners Think Food Is Good", "Menu Way Too Big", "Raw Next to Cooked", "This Could Kill Someone",
+      "Bland", "Microwave", "When was the last time...", "Gordon makes them touch/smell it", "Pig", "Singles Out Unhappy Customer",
+      "Modern, Contemporary", "Gordon Hypocrisy", "New Menu = One Sheet", "Graphic Design is My Passion", "Editor Had Fun",
+      "One-liner Exit", "Delusional/In Denial", "Bad Sentence Mixing", "Egomaniac", "Bugs Customers", "Embarrassed, Embarrassing",
+      "Ab.solutely", "Jesus Croist", "Staff Meeting", "Everyone Sucks Here", "Wow", "Good to see you", "Night and Day", "Gordon makes them eat it",
+      "Premade Food", "Gordon tackles issues he shouldn’t", "Says something insane", "Brings in Special Guest", "New POS"
+    ];
+
+    let celebrationTimeout;
+
+    function generateBingo() {
+  // Play "You Screwed my Willie" when new card is generated
+  const newCardSound = document.getElementById('newCardSound');
+  newCardSound.currentTime = 0;
+  newCardSound.play();
+
+  const shuffled = phrases.sort(() => 0.5 - Math.random()).slice(0, 25);
+  const board = document.getElementById('bingo');
+  board.innerHTML = '';
+
+  shuffled.forEach(text => {
+    const label = document.createElement('label');
+    label.className = 'cell';
+    label.tabIndex = 0;
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'cell-checkbox';
+
+    const span = document.createElement('span');
+    span.className = 'cell-text';
+    span.textContent = text;
+
+    label.appendChild(checkbox);
+    label.appendChild(span);
+    board.appendChild(label);
+
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        label.classList.add('checked');
+      } else {
+        label.classList.remove('checked');
+      }
+      checkBingo();
+    });
+  });
+
+  bindCheckboxSound();
+}
+
+
+    function bindCheckboxSound() {
+      const sounds = [
+        document.getElementById('sound0'),
+        document.getElementById('sound1'),
+        document.getElementById('sound2'),
+        document.getElementById('sound3'),
+        document.getElementById('sound4')
+      ];
+
+      document.querySelectorAll('input.cell-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('click', () => {
+          const sound = sounds[Math.floor(Math.random() * sounds.length)];
+          sound.currentTime = 0;
+          sound.play();
+        });
+      });
+    }
+
+    function checkBingo() {
+      const cells = Array.from(document.querySelectorAll('.cell'));
+      if (cells.length !== 25) return;
+
+      const checkedMatrix = [];
+      for (let i = 0; i < 5; i++) {
+        checkedMatrix[i] = [];
+        for (let j = 0; j < 5; j++) {
+          checkedMatrix[i][j] = cells[i * 5 + j].querySelector('input').checked;
+        }
+      }
+
+      const bingoFound = () => {
+        for (let i = 0; i < 5; i++) {
+          if (checkedMatrix[i].every(Boolean)) return true;
+          if (checkedMatrix.every(row => row[i])) return true;
+        }
+        if ([0,1,2,3,4].every(i => checkedMatrix[i][i])) return true;
+        if ([0,1,2,3,4].every(i => checkedMatrix[i][4 - i])) return true;
+        return false;
+      };
+
+      if (bingoFound()) {
+        triggerCelebration();
+      }
+    }
+
+    function triggerCelebration() {
+      clearTimeout(celebrationTimeout);
+      const celebration = document.getElementById('celebration');
+      celebration.classList.remove('hidden');
+      celebration.classList.add('visible');
+
+      celebrationTimeout = setTimeout(() => {
+        celebration.classList.remove('visible');
+        celebration.classList.add('hidden');
+      }, 3000);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const celebration = document.getElementById('celebration');
+      celebration.classList.add('hidden');
+      generateBingo();
+    });
+  </script>
+</body>
+</html>

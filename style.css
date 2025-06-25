@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Slab&display=swap');
+
+/* --- Base & Layout --- */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: 
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url('best-thumbnail-ever-v0-1pxs2lirq1ec1.webp') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Roboto Slab', serif;
+  color: #fff;
+
+  /* Flex center the container vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Added for body’s column flow */
+}
+
+/* --- Container Styling --- */
+#container {
+  width: 900px;
+  padding: 2rem;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+/* --- Header --- */
+.header {
+  width: 100%;
+  padding: 1rem 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-bottom: 2px solid crimson;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.header h1 {
+  margin: 0;
+  font-family: 'Anton', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 0.1em;
+  color: white;
+  text-shadow: 3px 3px 10px rgba(0,0,0,0.9);
+  text-align: center;
+}
+
+.ramsay-gif {
+  max-height: 100px;
+  border-radius: 999px;
+}
+
+/* --- Typography --- */
+h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: 3.5rem;
+  margin-bottom: 0;
+  letter-spacing: 0.1em;
+  text-shadow: 3px 3px 10px rgba(0,0,0,0.9);
+  position: relative;
+  z-index: 2;
+}
+
+.subtitle, .cell, button {
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+  position: relative;
+  z-index: 2;
+}
+
+.subtitle {
+  margin: 0.5rem 0 2rem;
+  font-size: 1rem;
+  font-style: italic;
+  color: #ddd;
+}
+
+.subtitle a {
+  color: crimson;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.subtitle a:hover {
+  text-decoration: underline;
+}
+
+/* --- Bingo Grid --- */
+#bingo {
+  display: grid;
+  grid-template-columns: repeat(5, 160px);
+  grid-template-rows: repeat(5, 120px);
+  gap: 10px;
+  margin-bottom: 2rem;
+  user-select: none;
+}
+
+/* Bingo Cell Styling */
+label.cell {
+  background: #222;
+  border-radius: 8px;
+  box-shadow: 0 0 8px #b22222aa;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #eee;
+  text-align: center;
+  user-select: none;
+  position: relative;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+label.cell:hover {
+  background: #b22222;
+  box-shadow: 0 0 12px crimson;
+  color: white;
+  z-index: 1;
+}
+
+label.cell.checked {
+  background: crimson;
+  color: white;
+  box-shadow: 0 0 16px #ff4444;
+  font-weight: 700;
+  transform: scale(1.05);
+  transition: background 0.2s ease;
+}
+
+/* Checkbox inside each cell */
+input.cell-checkbox {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: crimson;
+}
+
+/* --- Button Styling --- */
+button {
+  background: crimson;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 12px crimson;
+  transition: background 0.3s ease;
+  user-select: none;
+}
+
+button:hover {
+  background: #ff4c4c;
+}
+
+/* --- Celebration Overlay --- */
+#celebration {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background: rgba(0,0,0,0.8);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+  z-index: 9999;
+  user-select: none;
+}
+
+#celebration.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Celebration text */
+.bingo-banner {
+  font-family: 'Anton', sans-serif;
+  font-size: 5rem;
+  color: crimson;
+  text-shadow: 0 0 15px #ff4444;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+.ramsay-quote {
+  color: #ffbbbb;
+  font-size: 1.5rem;
+  font-style: italic;
+  max-width: 80vw;
+  text-align: center;
+  padding: 0 1rem;
+  user-select: none;
+  text-shadow: 0 0 5px #ff0000aa;
+}
+
+/* --- Confetti Animation --- */
+.confetti {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: crimson;
+  opacity: 0.9;
+  top: 50%;
+  left: 50%;
+  border-radius: 3px;
+
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(calc(var(--x) * 100vw), 100vh, 0) rotate(720deg);
+    opacity: 0;
+  }
+}

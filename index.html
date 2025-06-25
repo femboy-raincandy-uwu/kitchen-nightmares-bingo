@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Choose Your Bingo Experience</title>
+  <link rel="icon" type="image/gif" href="ramsay.gif" />
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background:
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        url('best-thumbnail-ever-v0-1pxs2lirq1ec1.webp') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Roboto Slab', serif;
+      color: #fff;
+      text-align: center;
+      user-select: none;
+      padding: 1rem;
+    }
+
+    h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      text-shadow: 3px 3px 10px rgba(0,0,0,0.9);
+      letter-spacing: 0.1em;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    button.select-button {
+      flex: 1 1 150px;
+      padding: 1rem 1.5rem;
+      background: crimson;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 12px crimson;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+
+    button.select-button:hover {
+      background: #ff4c4c;
+    }
+
+    p.note {
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: #ddd;
+      max-width: 300px;
+      line-height: 1.4;
+      font-style: italic;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>YOU BURNT MY WEINER</h1>
+  <div class="button-container">
+    <button class="select-button" id="desktopBtn" aria-label="Go to Desktop Bingo Version">Desktop Version</button>
+    <button class="select-button" id="mobileBtn" aria-label="Go to Mobile Bingo Version">Mobile Version</button>
+  </div>
+  <p class="note">STOP PLAYING WITH YER SAUSAGE.</p>
+
+  <!-- Preload Ramsay audio clips -->
+  <audio id="sound0" src="Gordan Ramsey says you burnt my weiner.mp3" preload="auto"></audio>
+  <audio id="sound1" src="Gordon Ramsay kill yourself 1.mp3" preload="auto"></audio>
+  <audio id="sound2" src="Oh no st Did you just spit on your meat_ Gordon Ramsay.mp3" preload="auto"></audio>
+  <audio id="sound3" src="Show me your willy.mp3" preload="auto"></audio>
+  <audio id="sound4" src="STOP PLAYING WOTH YOUR SAUSAGE  gordonramsay trend trending.mp3" preload="auto"></audio>
+
+  <script>
+    const sounds = [
+      document.getElementById('sound0'),
+      document.getElementById('sound1'),
+      document.getElementById('sound2'),
+      document.getElementById('sound3'),
+      document.getElementById('sound4')
+    ];
+
+    function playRandomSoundAndNavigate(url) {
+      const sound = sounds[Math.floor(Math.random() * sounds.length)];
+      sound.currentTime = 0;
+      sound.play();
+      // Wait for sound to finish before navigating or max 3 seconds timeout
+      const timeout = setTimeout(() => {
+        window.location.href = url;
+      }, 3000);
+
+      sound.onended = () => {
+        clearTimeout(timeout);
+        window.location.href = url;
+      };
+    }
+
+    document.getElementById('desktopBtn').addEventListener('click', () => {
+      playRandomSoundAndNavigate('bingo.html');
+    });
+
+    document.getElementById('mobileBtn').addEventListener('click', () => {
+      playRandomSoundAndNavigate('mobile-version.html');
+    });
+  </script>
+</body>
+</html>
