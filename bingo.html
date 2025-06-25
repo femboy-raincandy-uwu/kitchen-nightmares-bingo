@@ -18,33 +18,31 @@
       pointer-events: auto;
     }
   </style>
-
-<link rel="icon" type="image/gif" href="ramsay.gif" />
-
-<script>
+  <link rel="icon" type="image/gif" href="ramsay.gif" />
+  <script>
+    // Mobile redirect
     if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       window.location.href = "mobile-version.html";
     }
   </script>
-  
-
 </head>
 <body>
-    <div class="header">
-      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjZ3ODJ6dWR5ejlyZ243cHB6NmhrdXk1eXlzbWxiNzQzdGxha2c5aCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Yl4X3JyLv6fEVbTXKL/giphy.gif" alt="Gordon Ramsay" class="ramsay-gif">
-      
-      <h1>KITCHEN NIGHTMARES BINGO</h1>
+
+  <div id="ramsay-storm" aria-hidden="true"></div>
   
-      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjZ3ODJ6dWR5ejlyZ243cHB6NmhrdXk1eXlzbWxiNzQzdGxha2c5aCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Yl4X3JyLv6fEVbTXKL/giphy.gif" alt="Gordon Ramsay" class="ramsay-gif">
-    </div>
+  <div class="header">
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjZ3ODJ6dWR5ejlyZ243cHB6NmhrdXk1eXlzbWxiNzQzdGxha2c5aCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Yl4X3JyLv6fEVbTXKL/giphy.gif" alt="Gordon Ramsay" class="ramsay-gif" />
+    <h1>KITCHEN NIGHTMARES BINGO</h1>
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjZ3ODJ6dWR5ejlyZ243cHB6NmhrdXk1eXlzbWxiNzQzdGxha2c5aCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Yl4X3JyLv6fEVbTXKL/giphy.gif" alt="Gordon Ramsay" class="ramsay-gif" />
+  </div>
   
-    <div id="container">
-      <p class="subtitle">
-        <a href="https://www.youtube.com/watch?v=JWc5SNvoQOM">List from Lady Emily.</a>
-      </p>
-      <div id="bingo"></div>
-      <button onclick="generateBingo()">New Card</button>
-    </div>
+  <div id="container">
+    <p class="subtitle">
+      <a href="https://www.youtube.com/watch?v=JWc5SNvoQOM">List from Lady Emily.</a>
+    </p>
+    <div id="bingo"></div>
+    <button onclick="generateBingo()">New Card</button>
+  </div>
 
   <div id="celebration" class="hidden">
     <div class="confetti"></div>
@@ -58,7 +56,7 @@
     <div class="confetti"></div>
     <div class="confetti"></div>
     <div class="bingo-banner">BINGO! 🔥🍳🔥</div>
-    <div class="ramsay-quote">“It’s raw! But you’ve got bingo, finally.”</div>
+    <div class="ramsay-quote">"YOU PLAYED WITH YER SAUSAGE UwU"</div>
   </div>
 
   <!-- Preload Ramsay audio clips -->
@@ -69,126 +67,174 @@
   <audio id="sound4" src="STOP PLAYING WOTH YOUR SAUSAGE  gordonramsay trend trending.mp3" preload="auto"></audio>
   <audio id="newCardSound" src="You Screwed my Willie.mp3" preload="auto"></audio>
 
-
   <script>
-    const phrases = [
-      "I’ve eaten this", "Dirty Kitchen", "Surprisingly Clean Kitchen", "Gordon Brings up his dead relatives", "Ethnic Stereotype Music",
-      "Someone Cries", "The Framing makes a big deal out of something that isn’t", "Unbelievable Amounts of Debt", "Crab Cakes", "Weirdly Horny",
-      "Gordon likes the dessert", "The food is visibly horrifying", "Gordon gets distracted", "Gordon Fails to Understand a Basic Concept",
-      "Owner Fails to Understand a Basic Concept", "Crane Game/Quarter Machine", "Fresh-Frozen", "Gordon Vomits/Dry Heaves in the Bathroom",
-      "Wait Staff Excited to Rat Out Kitchen", "Time to ask the locals", "Restaurant Did Not Survive", "Gordon Presents Feedback",
-      "Amends That Won’t Last", "Gordon eats food like surgery", "Bad End", "Renovation Looks Bad", "Booths Eliminated", "Theme Is Changed",
-      "Shut the Place Down", "Distracting Decor", "Owners Think Food Is Good", "Menu Way Too Big", "Raw Next to Cooked", "This Could Kill Someone",
-      "Bland", "Microwave", "When was the last time...", "Gordon makes them touch/smell it", "Pig", "Singles Out Unhappy Customer",
-      "Modern, Contemporary", "Gordon Hypocrisy", "New Menu = One Sheet", "Graphic Design is My Passion", "Editor Had Fun",
-      "One-liner Exit", "Delusional/In Denial", "Bad Sentence Mixing", "Egomaniac", "Bugs Customers", "Embarrassed, Embarrassing",
-      "Ab.solutely", "Jesus Croist", "Staff Meeting", "Everyone Sucks Here", "Wow", "Good to see you", "Night and Day", "Gordon makes them eat it",
-      "Premade Food", "Gordon tackles issues he shouldn’t", "Says something insane", "Brings in Special Guest", "New POS"
-    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      const ramsayStorm = document.getElementById('ramsay-storm');
 
-    let celebrationTimeout;
+      function showRamsayStorm() {
+        ramsayStorm.innerHTML = ''; // Clear previous gifs
 
-    function generateBingo() {
-  // Play "You Screwed my Willie" when new card is generated
-  const newCardSound = document.getElementById('newCardSound');
-  newCardSound.currentTime = 0;
-  newCardSound.play();
+        const gifs = [
+          'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGlieGNjbnZ1YThwcTAwc3QwYzkwYnR3bDByaHZrc283eHZxdWdrNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7aPMPRlMr8LkY/giphy.gif',
+          'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2Nub2FxYnc2bGhuaWVrbWZkNm1sMm96cnpvYWxocHo2bGw5YWl6byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/103t71VKmtY1UY/giphy.gif',
+          'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjIxc3czeHdhOGJjcmFlczVpcmNmZzNmaDV4ZmtmbTlwMDU3MTdyeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/we4Hp4J3n7riw/giphy.gif',
+          'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTJmcHhtb2htYTE0enZhNHpvcnFmbmFvZmdvYnR0MGlpMGM4b3N3dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYyoYPvz22wTXkQ/giphy.gif',
+          'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnowazF2bnA1MmlwM3pkZG14MTB6cGRuY2hpZjhtaHBrNXBmZnh5ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GWf36P6jZqb757XiPu/giphy.gif',
+          'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2V6bmljODRuc3E4aHB6d3BvZ2t2aTd0cjB6eDgzOTVrd3ViN3dyciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/rBg67mCRacBmCJR6JN/giphy.gif',
+          'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHMxdjFzeDJnemp2MWNzNG16djhubGJqeDQ3cGxxdGd2ZzA2Z2t3diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/we4Hp4J3n7riw/giphy.gif',
+          'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZW81czlidXBuY2NjY3psaHBwNm4yZWFkdmhxZ3hmeTVjNWt3Y2NhbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/aCow2k5qfZrlEXuMI9/giphy.gif',
+          'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnhsd2dlMjM5dms0Z2I5MmppYmxzbXo1bjZxMzdoY3dleGh0cXk1MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/rUmEERdOq7pk5P5jLx/giphy.gif',
+          'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3NqdWQ1NjltbTd6eGsyM3AwdTU1bTl6YTUxcHV0ZWx3ZDEyN3hmZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xd2BKr7YATTyWP1qyo/giphy.gif'
+        ];
 
-  const shuffled = phrases.sort(() => 0.5 - Math.random()).slice(0, 25);
-  const board = document.getElementById('bingo');
-  board.innerHTML = '';
+        gifs.forEach(src => {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = "Gordon Ramsay gif";
+          ramsayStorm.appendChild(img);
+        });
 
-  shuffled.forEach(text => {
-    const label = document.createElement('label');
-    label.className = 'cell';
-    label.tabIndex = 0;
+        ramsayStorm.classList.add('visible');
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.className = 'cell-checkbox';
-
-    const span = document.createElement('span');
-    span.className = 'cell-text';
-    span.textContent = text;
-
-    label.appendChild(checkbox);
-    label.appendChild(span);
-    board.appendChild(label);
-
-    checkbox.addEventListener('change', () => {
-      if (checkbox.checked) {
-        label.classList.add('checked');
-      } else {
-        label.classList.remove('checked');
+        // Hide after 6 seconds
+        setTimeout(() => {
+          ramsayStorm.classList.remove('visible');
+          ramsayStorm.innerHTML = '';
+        }, 6000);
       }
-      checkBingo();
-    });
-  });
 
-  bindCheckboxSound();
-}
-
-
-    function bindCheckboxSound() {
-      const sounds = [
-        document.getElementById('sound0'),
-        document.getElementById('sound1'),
-        document.getElementById('sound2'),
-        document.getElementById('sound3'),
-        document.getElementById('sound4')
+      // Bingo phrases
+      const phrases = [
+        "I’ve eaten this", "Dirty Kitchen", "Surprisingly Clean Kitchen", "Gordon Brings up his dead relatives", "Ethnic Stereotype Music",
+        "Someone Cries", "The Framing makes a big deal out of something that isn’t", "Unbelievable Amounts of Debt", "Crab Cakes", "Weirdly Horny",
+        "Gordon likes the dessert", "The food is visibly horrifying", "Gordon gets distracted", "Gordon Fails to Understand a Basic Concept",
+        "Owner Fails to Understand a Basic Concept", "Crane Game/Quarter Machine", "Fresh-Frozen", "Gordon Vomits/Dry Heaves in the Bathroom",
+        "Wait Staff Excited to Rat Out Kitchen", "Time to ask the locals", "Restaurant Did Not Survive", "Gordon Presents Feedback",
+        "Amends That Won’t Last", "Gordon eats food like surgery", "Bad End", "Renovation Looks Bad", "Booths Eliminated", "Theme Is Changed",
+        "Shut the Place Down", "Distracting Decor", "Owners Think Food Is Good", "Menu Way Too Big", "Raw Next to Cooked", "This Could Kill Someone",
+        "Bland", "Microwave", "When was the last time...", "Gordon makes them touch/smell it", "Pig", "Singles Out Unhappy Customer",
+        "Modern, Contemporary", "Gordon Hypocrisy", "New Menu = One Sheet", "Graphic Design is My Passion", "Editor Had Fun",
+        "One-liner Exit", "Delusional/In Denial", "Bad Sentence Mixing", "Egomaniac", "Bugs Customers", "Embarrassed, Embarrassing",
+        "Ab.solutely", "Jesus Croist", "Staff Meeting", "Everyone Sucks Here", "Wow", "Good to see you", "Night and Day", "Gordon makes them eat it",
+        "Premade Food", "Gordon tackles issues he shouldn’t", "Says something insane", "Brings in Special Guest", "New POS"
       ];
 
-      document.querySelectorAll('input.cell-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('click', () => {
-          const sound = sounds[Math.floor(Math.random() * sounds.length)];
-          sound.currentTime = 0;
-          sound.play();
+      let celebrationTimeout;
+
+      function generateBingo() {
+        const newCardSound = document.getElementById('newCardSound');
+        newCardSound.currentTime = 0;
+        newCardSound.play();
+
+        const shuffled = phrases.sort(() => 0.5 - Math.random()).slice(0, 25);
+        const board = document.getElementById('bingo');
+        board.innerHTML = '';
+
+        shuffled.forEach(text => {
+          const label = document.createElement('label');
+          label.className = 'cell';
+          label.tabIndex = 0;
+
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.className = 'cell-checkbox';
+
+          const span = document.createElement('span');
+          span.className = 'cell-text';
+          span.textContent = text;
+
+          label.appendChild(checkbox);
+          label.appendChild(span);
+          board.appendChild(label);
+
+          checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+              label.classList.add('checked');
+            } else {
+              label.classList.remove('checked');
+            }
+            checkBingo();
+          });
         });
-      });
-    }
 
-    function checkBingo() {
-      const cells = Array.from(document.querySelectorAll('.cell'));
-      if (cells.length !== 25) return;
-
-      const checkedMatrix = [];
-      for (let i = 0; i < 5; i++) {
-        checkedMatrix[i] = [];
-        for (let j = 0; j < 5; j++) {
-          checkedMatrix[i][j] = cells[i * 5 + j].querySelector('input').checked;
-        }
+        bindCheckboxSound();
       }
 
-      const bingoFound = () => {
+      function bindCheckboxSound() {
+        const sounds = [
+          document.getElementById('sound0'),
+          document.getElementById('sound1'),
+          document.getElementById('sound2'),
+          document.getElementById('sound3'),
+          document.getElementById('sound4')
+        ];
+
+        document.querySelectorAll('input.cell-checkbox').forEach(checkbox => {
+          checkbox.addEventListener('click', () => {
+            const sound = sounds[Math.floor(Math.random() * sounds.length)];
+            sound.currentTime = 0;
+            sound.play();
+          });
+        });
+      }
+
+      function checkBingo() {
+        const board = document.getElementById('bingo');
+        const labels = [...board.querySelectorAll('label.cell')];
+        if (labels.length < 25) return;
+
+        // Build 2D array of checkboxes for easier row/column/diagonal checks
+        const grid = [];
         for (let i = 0; i < 5; i++) {
-          if (checkedMatrix[i].every(Boolean)) return true;
-          if (checkedMatrix.every(row => row[i])) return true;
+          grid[i] = labels.slice(i * 5, i * 5 + 5).map(label => label.querySelector('input'));
         }
-        if ([0,1,2,3,4].every(i => checkedMatrix[i][i])) return true;
-        if ([0,1,2,3,4].every(i => checkedMatrix[i][4 - i])) return true;
-        return false;
-      };
 
-      if (bingoFound()) {
-        triggerCelebration();
+        function isLineComplete(line) {
+          return line.every(checkbox => checkbox.checked);
+        }
+
+        // Check rows
+        for (let i = 0; i < 5; i++) {
+          if (isLineComplete(grid[i])) {
+            showCelebration();
+            return;
+          }
+        }
+
+        // Check columns
+        for (let j = 0; j < 5; j++) {
+          if (isLineComplete(grid.map(row => row[j]))) {
+            showCelebration();
+            return;
+          }
+        }
+
+        // Check diagonals
+        if (isLineComplete(grid.map((row, idx) => row[idx])) ||
+            isLineComplete(grid.map((row, idx) => row[4 - idx]))) {
+          showCelebration();
+        } else {
+          hideCelebration();
+        }
       }
-    }
 
-    function triggerCelebration() {
-      clearTimeout(celebrationTimeout);
-      const celebration = document.getElementById('celebration');
-      celebration.classList.remove('hidden');
-      celebration.classList.add('visible');
+      function showCelebration() {
+        clearTimeout(celebrationTimeout);
+        const celebration = document.getElementById('celebration');
+        celebration.classList.remove('hidden');
+        celebration.classList.add('visible');
+        showRamsayStorm();
 
-      celebrationTimeout = setTimeout(() => {
-        celebration.classList.remove('visible');
+        // Hide after 6 seconds
+        celebrationTimeout = setTimeout(hideCelebration, 6000);
+      }
+
+      function hideCelebration() {
+        const celebration = document.getElementById('celebration');
         celebration.classList.add('hidden');
-      }, 3000);
-    }
+        celebration.classList.remove('visible');
+      }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const celebration = document.getElementById('celebration');
-      celebration.classList.add('hidden');
       generateBingo();
     });
   </script>

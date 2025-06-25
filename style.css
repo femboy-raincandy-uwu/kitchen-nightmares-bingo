@@ -247,3 +247,40 @@ button:hover {
     opacity: 0;
   }
 }
+
+/* Ramsay storm container */
+#ramsay-storm {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+    user-select: none;
+  }
+  
+  #ramsay-storm.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
+  }
+  
+  #ramsay-storm img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px crimson;
+    animation: ramsay-shake 0.8s infinite alternate ease-in-out;
+  }
+  
+  @keyframes ramsay-shake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(3px, -3px) rotate(6deg); }
+  }
+  
